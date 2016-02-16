@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/image">
+        <file alias="normal">images/normal.png</file>
+        <file alias="mineBoom">images/mineBoom.png</file>
+        <file alias="mark">images/mark.png</file>
+        <file alias="8">images/eight.png</file>
+        <file alias="5">images/five.png</file>
+        <file alias="4">images/four.png</file>
+        <file alias="1">images/one.png</file>
+        <file alias="7">images/seven.png</file>
+        <file alias="6">images/six.png</file>
+        <file alias="3">images/three.png</file>
+        <file alias="2">images/two.png</file>
+        <file alias="0">images/zero.png</file>
+    </qresource>
+</RCC>
