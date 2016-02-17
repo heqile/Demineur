@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QtCore>
 #include <QtWidgets>
+#include "blockarea.h"
+
 
 class Block:public QLabel
 {
@@ -13,15 +15,19 @@ public:
 public:
     void setNumber(int number);
     bool isMine() const;
-
+    void setPosition(int x, int y);
+    int openblock(int* count);
 private:
     bool ok_flag_;
     bool mark_flag_;
     bool mine_flag_;
     int  number_;
+    int  num_column_;
+    int  num_row_;
 signals:
     void signalExplore();
-    void signalSafe();
+    void signalSafe(int x, int y);
+//    void signalSafe_zero();
 protected:
     void mousePressEvent(QMouseEvent *event);
 };

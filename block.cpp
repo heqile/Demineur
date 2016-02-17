@@ -1,4 +1,5 @@
 #include "block.h"
+#include "blockarea.h"
 #include <QtCore>
 #include <QtWidgets>
 
@@ -8,7 +9,15 @@ Block::Block(bool mine_flag, QWidget* parent):QLabel(parent)
     ok_flag_   = false;
     mark_flag_ = false;
     number_    = -1;
+    num_column_= 0;
+    num_row_   = 0;
     setPixmap(QPixmap(":/image/normal"));
+}
+
+void Block::setPosition(int x, int y)
+{
+    num_row_    = x;
+    num_column_ = y;
 }
 
 void Block::setNumber(int number)
@@ -21,6 +30,25 @@ bool Block::isMine()const
     return mine_flag_;
 }
 
+
+int Block::openblock(int* count)
+{
+
+    if(ok_flag_ || mark_flag_);
+    else
+    {
+        ok_flag_ = true;
+        setPixmap(QPixmap(":/image/"+QString::number(number_)));
+        update();
+        if(number_ == 0)
+            return 1;
+        else
+            return 2;
+    }
+    return 0;
+}
+
+
 void Block::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
@@ -28,30 +56,29 @@ void Block::mousePressEvent(QMouseEvent *event)
         if(ok_flag_ || mark_flag_);
         else
         {
-            ok_flag_ = true;
+
             if(mine_flag_)
             {
+                ok_flag_ = true;
                 setPixmap(QPixmap(":/image/mineBoom"));
                 update();
                 emit signalExplore();
             }
             else
             {
-/*                switch(number_)
-                {
-                    case 0: setPixmap(QPixmap(":/image/0"));break;
-                    case 1: setPixmap(QPixmap(":/image/1"));break;
-                    case 2: setPixmap(QPixmap(":/image/2"));break;
-                    case 3: setPixmap(QPixmap(":/image/3"));break;
-                    case 4: setPixmap(QPixmap(":/image/4"));break;
-                }*/
-
 //                setPixmap(QPixmap(":/image/"+QString("%1").arg(number_)));
-                setPixmap(QPixmap(":/image/"+QString::number(number_)));
-                update();
+//                setPixmap(QPixmap(":/image/"+QString::number(number_)));
+//                update();
+//                openblock(this);
+//                if(number_ == 0)
+//               {
+//                    emit signalSafe_zero(this);
+//                }
+//                else
+//                {
+                    emit signalSafe(num_row_,num_column_);
+//                }
 
-                //QString::number(number_)
-                emit signalSafe();
             }
 
         }
