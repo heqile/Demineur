@@ -34,6 +34,7 @@ BlockArea::BlockArea(QWidget* parent):QWidget(parent)
     setFixedSize(sizeHint());
 }
 
+
 int BlockArea::calculateMine(int x, int y)const
 {
     int num = 0;

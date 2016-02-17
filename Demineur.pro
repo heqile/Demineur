@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         dialog.cpp \
     block.cpp \
-    blockarea.cpp
+    blockarea.cpp \
+    user_interface.cpp
 
 HEADERS  += dialog.h \
     block.h \
-    blockarea.h
+    blockarea.h \
+    user_interface.h
 
 FORMS    += dialog.ui
 
