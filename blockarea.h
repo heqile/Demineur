@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtCore>
 #include <QtWidgets>
+#include "block.h"
 
 class BlockArea: public QWidget
 {
@@ -12,7 +13,8 @@ public:
     BlockArea(QWidget* parent=0);
 private slots:
     void slotExplore();
-    void slotSafe();
+    void slotSafe(int x, int y);
+//    void slotSafe_zero();
 private:
     QGridLayout *layout;
     int column_;
@@ -20,8 +22,11 @@ private:
     int total_block_number_;
     int total_mine_number_;
     int total_ok_block_number;
+    QLabel *label;
 private:
     int calculateMine(int x,int y)const;
+    int openBlockArea(int x, int y,int* count)const;
+
 
 };
 
