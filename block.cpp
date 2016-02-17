@@ -40,7 +40,6 @@ int Block::openblock(int* count)
         ok_flag_ = true;
         setPixmap(QPixmap(":/image/"+QString::number(number_)));
         update();
-//        ++(*count);
         if(number_ == 0)
             return 1;
         else

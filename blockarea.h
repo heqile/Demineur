@@ -22,7 +22,6 @@ private:
     int total_block_number_;
     int total_mine_number_;
     int total_ok_block_number;
-    QLabel *label;
 private:
     int calculateMine(int x,int y)const;
     int openBlockArea(int x, int y,int* count)const;

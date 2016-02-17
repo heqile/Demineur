@@ -8,7 +8,6 @@ BlockArea::BlockArea(QWidget* parent):QWidget(parent)
     total_block_number_ = column_*row_;
     total_mine_number_ = 5;
     total_ok_block_number = 0;
-//    current_block = new Block;
 
     bool mine_flag[total_block_number_];
     for(int i = 0; i < total_mine_number_; i++)
@@ -29,16 +28,10 @@ BlockArea::BlockArea(QWidget* parent):QWidget(parent)
             current_block->setNumber(calculateMine(i,j));
             current_block->setPosition(i,j);
             connect(current_block,SIGNAL(signalSafe(int,int)),this,SLOT(slotSafe(int,int)));
-//            connect(current_block,SIGNAL(signalSafe_zero(Block*)),this,SLOT(slotSafe_zero(Block*)));
             connect(current_block,SIGNAL(signalExplore()),this,SLOT(slotExplore()));
         }
 
-    label = new QLabel(this);
-
-    label->setText(QString::number((total_ok_block_number)));
-    label->show();
-
- //   setFixedSize(sizeHint());
+    setFixedSize(sizeHint());
 }
 
 int BlockArea::calculateMine(int x, int y)const
@@ -58,7 +51,6 @@ int BlockArea::openBlockArea(int x, int y,int* count)const
 {
     int n=0;
     Block* current_block = static_cast<Block*>(layout->itemAtPosition(x,y)->widget());
-//    current_block->openblock(count);
     int ret = current_block->openblock(count);
     if(ret != 0)
         n++;
@@ -83,11 +75,8 @@ void BlockArea::slotSafe(int x, int y)
 {
     int *count = 0;
 
- //   Block* current_block = static_cast<Block*>(layout->itemAtPosition(x,y)->widget());
-//    current_block->openblock(count);
     total_ok_block_number = total_ok_block_number + openBlockArea(x,y,count);
-//    label->setText(QString::number((total_ok_block_number)));
-    label->update();
+
     if(total_ok_block_number == total_block_number_-total_mine_number_)
         QMessageBox::information(this,"result","Win!");
 }
