@@ -20,8 +20,9 @@ user_interface::user_interface(QWidget *parent) : QMainWindow(parent)
     mBlockArea = new BlockArea(this);
     setCentralWidget(mBlockArea);
     mBlockArea->show();
-    connect(mAction,SIGNAL(triggered(bool)),this,SLOT(mRestart()));
 
+    connect(mAction,SIGNAL(triggered(bool)),this,SLOT(mRestart()));
+    connect(mBlockArea,SIGNAL(signalLose()),this,SLOT(onLose()));
 }
 
 void user_interface::mRestart()
@@ -31,6 +32,11 @@ void user_interface::mRestart()
      mBlockArea = new BlockArea(this);
      setCentralWidget(mBlockArea);
      mBlockArea->show();
+     connect(mBlockArea,SIGNAL(signalLose()),this,SLOT(onLose()));
      mStatusBar->showMessage("Start",3000);
+}
 
+void user_interface::onLose()
+{
+        mBlockArea->setEnabled(false);
 }

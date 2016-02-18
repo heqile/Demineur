@@ -1,5 +1,7 @@
 #include "blockarea.h"
 #include "block.h"
+#include <QtCore>
+#include <QtWidgets>
 
 BlockArea::BlockArea(QWidget* parent):QWidget(parent)
 {
@@ -8,7 +10,6 @@ BlockArea::BlockArea(QWidget* parent):QWidget(parent)
     total_block_number_ = column_*row_;
     total_mine_number_ = 5;
     total_ok_block_number = 0;
-
     bool mine_flag[total_block_number_];
     for(int i = 0; i < total_mine_number_; i++)
         mine_flag[i] = true;
@@ -68,17 +69,16 @@ int BlockArea::openBlockArea(int x, int y,int* count)const
 
 void BlockArea::slotExplore()
 {
+    emit signalLose();
     QMessageBox::information(this,"reslut","You lose!");
-
 }
 
 void BlockArea::slotSafe(int x, int y)
 {
     int *count = 0;
-
     total_ok_block_number = total_ok_block_number + openBlockArea(x,y,count);
-
     if(total_ok_block_number == total_block_number_-total_mine_number_)
         QMessageBox::information(this,"result","Win!");
 }
+
 

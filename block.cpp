@@ -51,6 +51,7 @@ int Block::openblock(int* count)
 
 void Block::mousePressEvent(QMouseEvent *event)
 {
+
     if(event->button() == Qt::LeftButton)
     {
         if(ok_flag_ || mark_flag_);
@@ -82,6 +83,7 @@ void Block::mousePressEvent(QMouseEvent *event)
             }
 
         }
+
     }
     if(event->button() == Qt::RightButton)
     {

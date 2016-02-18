@@ -24,6 +24,8 @@ signals:
 
 public slots:
     void mRestart( );
+    void onLose();
+
 };
 
 #endif // USER_INTERFACE_H

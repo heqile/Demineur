@@ -11,6 +11,7 @@ class BlockArea: public QWidget
     Q_OBJECT
 public:
     BlockArea(QWidget* parent=0);
+
 private slots:
     void slotExplore();
     void slotSafe(int x, int y);
@@ -25,7 +26,8 @@ private:
 private:
     int calculateMine(int x,int y)const;
     int openBlockArea(int x, int y,int* count)const;
-
+signals:
+    void signalLose();
 
 };
 
