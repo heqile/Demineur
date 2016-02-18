@@ -32,7 +32,7 @@ BlockArea::BlockArea(QWidget* parent):QWidget(parent)
             connect(current_block,SIGNAL(signalExplore()),this,SLOT(slotExplore()));
         }
 
-    setFixedSize(sizeHint());
+
 }
 
 
@@ -70,7 +70,7 @@ int BlockArea::openBlockArea(int x, int y,int* count)const
 void BlockArea::slotExplore()
 {
     emit signalLose();
-    QMessageBox::information(this,"reslut","You lose!");
+
 }
 
 void BlockArea::slotSafe(int x, int y)
@@ -78,7 +78,7 @@ void BlockArea::slotSafe(int x, int y)
     int *count = 0;
     total_ok_block_number = total_ok_block_number + openBlockArea(x,y,count);
     if(total_ok_block_number == total_block_number_-total_mine_number_)
-        QMessageBox::information(this,"result","Win!");
+        emit signalWin();
 }
 
 

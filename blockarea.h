@@ -28,6 +28,7 @@ private:
     int openBlockArea(int x, int y,int* count)const;
 signals:
     void signalLose();
+    void signalWin();
 
 };
 

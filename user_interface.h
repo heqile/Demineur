@@ -5,6 +5,7 @@
 #include <QtCore>
 #include <QtWidgets>
 #include "blockarea.h"
+#include "mytimer.h"
 
 class user_interface : public QMainWindow
 {
@@ -13,18 +14,23 @@ public:
     explicit user_interface(QWidget *parent = 0);
 
 private:
-    QAction *mAction;
+    QAction *Rest_;
     QMenu *mMenu;
     QToolBar *mToolBar;
     QStatusBar *mStatusBar;
-
+    MyTimer *mTimer;
     BlockArea *mBlockArea;
+    QLabel *time_label;
+    void mStart();
+    int timer_;
 
 signals:
 
 public slots:
-    void mRestart( );
+    void mRestart();
     void onLose();
+    void onWin();
+    void count_time();
 
 };
 

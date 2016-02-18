@@ -2,41 +2,75 @@
 #include <QtCore>
 #include <QtWidgets>
 #include "blockarea.h"
+#include "mytimer.h"
 
 user_interface::user_interface(QWidget *parent) : QMainWindow(parent)
 {
-    mAction = new QAction(tr("&Restart"),this);
-    mAction->setShortcut(QKeySequence::Refresh);
+    mTimer = new MyTimer(this);
 
-    mMenu = menuBar()->addMenu(tr("&Restart"));
-    mMenu->addAction(mAction);
+    time_label = new QLabel(this);
+
+    Rest_ = new QAction(tr("&Restart"),this);
+    Rest_->setShortcut(QKeySequence::Refresh);
+
+    mMenu = menuBar()->addMenu(tr("&Game"));
+    mMenu->addAction(Rest_);
+    mMenu = menuBar()->addMenu(tr("&Setting"));
 
     mToolBar = addToolBar(tr("&Restart"));
-    mToolBar->addAction(mAction);
+    mToolBar->addAction(Rest_);
+    mToolBar->setMovable(false);
 
     mStatusBar = statusBar();
-    mStatusBar->showMessage("hi",3000);
+    mStatusBar->addPermanentWidget(time_label);
 
-    mBlockArea = new BlockArea(this);
-    setCentralWidget(mBlockArea);
-    mBlockArea->show();
+    mStart();
+    connect(Rest_,SIGNAL(triggered(bool)),this,SLOT(mRestart()));
+    connect(mTimer,SIGNAL(timeout()),this,SLOT(count_time()));
 
-    connect(mAction,SIGNAL(triggered(bool)),this,SLOT(mRestart()));
-    connect(mBlockArea,SIGNAL(signalLose()),this,SLOT(onLose()));
+    setFixedSize(sizeHint());
 }
 
-void user_interface::mRestart()
+void user_interface::mStart()
 {
-  //  QMessageBox::information(this,"title","clicked");
-     mBlockArea->close();
+
+     mTimer->start(1000);
+     timer_=0;
      mBlockArea = new BlockArea(this);
      setCentralWidget(mBlockArea);
      mBlockArea->show();
      connect(mBlockArea,SIGNAL(signalLose()),this,SLOT(onLose()));
+     connect(mBlockArea,SIGNAL(signalWin()),this,SLOT(onWin()));
+     time_label->setText("");
      mStatusBar->showMessage("Start",3000);
+}
+
+void user_interface::mRestart()
+{
+     mBlockArea->close();
+     mStart();
 }
 
 void user_interface::onLose()
 {
-        mBlockArea->setEnabled(false);
+
+    mTimer->stop();
+    mBlockArea->setEnabled(false);
+    QMessageBox::information(this,"reslut","You lose!");
+}
+
+void user_interface::onWin()
+{
+
+    mTimer->stop();
+
+    mBlockArea->setEnabled(false);
+    QMessageBox::information(this,"result","Win!");
+}
+
+void user_interface::count_time()
+{
+    timer_++;
+    time_label->setText(QString::number(timer_)+" second");
+
 }

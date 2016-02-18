@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         dialog.cpp \
     block.cpp \
     blockarea.cpp \
-    user_interface.cpp
+    user_interface.cpp \
+    mytimer.cpp
 
 HEADERS  += dialog.h \
     block.h \
     blockarea.h \
-    user_interface.h
+    user_interface.h \
+    mytimer.h
 
 FORMS    += dialog.ui
 
